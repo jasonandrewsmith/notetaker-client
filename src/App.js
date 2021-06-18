@@ -4,6 +4,7 @@ import { AddCircle, CloseCircle, Save, ArrowForward, Create } from 'react-ionico
 function App() {
     const [notes, setNotes] = useState([]);
     const [noteSelected, setNoteSelected] = useState('');
+    const API_URL = 'https://xtvme0xhfi.execute-api.us-east-2.amazonaws.com/dev/api/v1/notes/';
 
     useEffect(() => {
         fetchNotes();
@@ -11,7 +12,7 @@ function App() {
 
     async function fetchNotes() {
         console.log("Fetching notes...");
-        const response = await fetch('http://localhost:3001/api/v1/notes', { 
+        const response = await fetch(API_URL, { 
             headers: {
                 'Accept': 'application/json'
             }
@@ -64,7 +65,7 @@ function App() {
         console.log(note);
         console.log(updates);
 
-        const response = await fetch('http://localhost:3001/api/v1/notes/'+note._id, { 
+        const response = await fetch(API_URL+note._id, { 
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -79,7 +80,7 @@ function App() {
     async function removeNote(note) {
         if(note._id !== noteSelected) return;
 
-        await fetch('http://localhost:3001/api/v1/notes/'+note._id, { 
+        await fetch(API_URL+note._id, { 
             method: 'DELETE'
         });
         let indexToReplace = notes.findIndex((noteFromState) => 
@@ -100,7 +101,7 @@ function App() {
             title: "Title",
             content: "Content"
         }
-        const response = await fetch('http://localhost:3001/api/v1/notes', { 
+        const response = await fetch(API_URL, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
