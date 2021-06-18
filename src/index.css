@@ -1,13 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, 'Roboto';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(207deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+  padding: 50px;
+  min-height: 100vh;
+  transition: ease-in-out 0.25s;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+li {
+  list-style-type: none;
+  background-color: gold;
+}
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  color: rgb(253, 253, 253);
+  text-shadow: rgba(0, 0, 0, 0.719) 2px 2px 10px;
+  font-family: 'Permanent Marker', cursive;
+  font-size: 70px;
+}
+
+.notes-list {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  grid-auto-flow: row;
+  width: 80%;
+}
+
+.note {
+  padding: 25px;
+  margin: 15px;
+  width: 300px;
+  border-radius: 7px;
+  box-shadow: rgba(0, 0, 0, 0.767) 2px 2px 10px;
+  transition: ease-in-out 0.25s;
+}
+
+.note-selected {
+  transform: scale(1.5);
+}
+
+.note:hover {
+  cursor: pointer;
+}
+
+.note-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+input, textarea {
+  border: none;
+  display: inline;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 2px;
+  width: 100%;
+  background: none;
+  transition: ease-in-out 0.25s;
+  border-radius: 3px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+textarea {
+  transition: none;
+}
+
+input:hover, input:focus
+textarea:hover, textarea:focus {
+  background: rgb(236, 186, 57);
+}
+
+.note-title {
+  margin: 0;
+  font-family: 'Permanent Marker', cursive;
+  /* appearance: none; */
+}
+
+.note-content {
+  font-size: 20px;  
+  margin: 10px 0;
+  font-weight: normal;
+}
+
+.note-footer * {
+  margin: 5px 0;
+  font-size: 15px;  
+  font-style: italic;
+  font-weight: light;
+  display: flex;
+}
+
+.no-pointer {
+  cursor: unset !important;
+}
+
+.add {
+  filter: drop-shadow(rgba(0, 0, 0, 0.767) 2px 2px 10px);
+  margin-bottom: 20px;
+}
+
+.add:hover {
+  cursor: pointer;
+}
+
+.edit {
+  margin-top: 10px;
+  margin-left: auto;
+}
+
+.save, .delete, .back {
+  margin: 0 5px;
 }
