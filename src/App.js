@@ -4,7 +4,7 @@ import { AddCircle, CloseCircle, Save, ArrowForward, Create } from 'react-ionico
 function App() {
     const [notes, setNotes] = useState([]);
     const [noteSelected, setNoteSelected] = useState('');
-    const API_URL = 'https://xtvme0xhfi.execute-api.us-east-2.amazonaws.com/dev/api/v1/notes/';
+    const API_URL = 'https://e6ttla0udc.execute-api.us-east-2.amazonaws.com/dev/api/v1/notes/';
 
     useEffect(() => {
         fetchNotes();
