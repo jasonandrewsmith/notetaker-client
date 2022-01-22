@@ -4,7 +4,7 @@ import { AddCircle, CloseCircle, Save, ArrowForward, Create } from 'react-ionico
 function App() {
     const [notes, setNotes] = useState([]);
     const [noteSelected, setNoteSelected] = useState('');
-    const API_URL = 'https://e6ttla0udc.execute-api.us-east-2.amazonaws.com/dev/api/v1/notes/';
+    const API_URL = 'https://e6ttla0udc.execute-api.us-east-1.amazonaws.com/test/notetaker/api/notes';
 
     useEffect(() => {
         fetchNotes();
@@ -14,8 +14,10 @@ function App() {
         console.log("Fetching notes...");
         const response = await fetch(API_URL, { 
             headers: {
-                'Accept': 'application/json'
-            }
+                'Accept': 'application/json',
+                'Force-Preflight': 'Foo'
+            },
+            mode: 'cors'
         });
         const json = await response.json();
 
@@ -65,7 +67,7 @@ function App() {
         console.log(note);
         console.log(updates);
 
-        const response = await fetch(API_URL+note._id, { 
+        const response = await fetch(API_URL+'/'+note._id.$oid, { 
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json'
@@ -80,7 +82,7 @@ function App() {
     async function removeNote(note) {
         if(note._id !== noteSelected) return;
 
-        await fetch(API_URL+note._id, { 
+        await fetch(API_URL+'/'+note._id.$oid, { 
             method: 'DELETE'
         });
         let indexToReplace = notes.findIndex((noteFromState) => 
