@@ -31,7 +31,7 @@ function App() {
         copyOfStateObj.updatedDate = note.updatedDate
         
         let indexToReplace = notes.findIndex((noteFromState) => 
-            noteFromState._id === copyOfStateObj._id
+            noteFromState._id.$oid === copyOfStateObj._id.$oid
         );
 
         const copyOfStateArray = [...notes];
@@ -51,7 +51,7 @@ function App() {
         }
         
         let indexToReplace = notes.findIndex((noteFromState) => 
-            noteFromState._id === copyOfStateObj._id
+            noteFromState._id.$oid === copyOfStateObj._id.$oid
         );
 
         const copyOfStateArray = [...notes];
@@ -60,8 +60,9 @@ function App() {
         setNotes(copyOfStateArray);
     }
 
+    // TODO: Updates are not working
     async function handleSave(note) {
-        if(note._id !== noteSelected) return;
+        if(note._id.$oid !== noteSelected) return;
 
         let { _id, updatedDate, creationDate, ...updates } = note;
         console.log(note);
@@ -80,13 +81,13 @@ function App() {
     }
 
     async function removeNote(note) {
-        if(note._id !== noteSelected) return;
+        if(note._id.$oid !== noteSelected) return;
 
         await fetch(API_URL+'/'+note._id.$oid, { 
             method: 'DELETE'
         });
         let indexToReplace = notes.findIndex((noteFromState) => 
-            noteFromState._id === note._id
+            noteFromState._id.$oid === note._id.$oid
         );
 
         let oldNotes = [...notes];
@@ -95,7 +96,7 @@ function App() {
 
         setNotes(oldNotes);
 
-        console.log('Removed note ' + note._id);
+        console.log('Removed note ' + note._id.$oid);
     }
 
     async function addNote() {
@@ -114,7 +115,7 @@ function App() {
 
         newNote = json;
         setNotes(oldNotes => [newNote, ...oldNotes]);
-        setNoteSelected(newNote._id);
+        setNoteSelected(newNote._id.$oid);
     }
 
     return (
@@ -133,9 +134,9 @@ function App() {
             <ul className="notes-list">
                 {notes.map(note => (
                     <li 
-                    key={note._id} 
-                    id={note._id} 
-                    className={note._id === noteSelected ? "note note-selected no-pointer" : "note"}>
+                    key={note._id.$oid} 
+                    id={note._id.$oid} 
+                    className={note._id.$oid === noteSelected ? "note note-selected no-pointer" : "note"}>
                         <div className="note-main">
                             <div className="note-top">
                                 <input 
@@ -188,7 +189,7 @@ function App() {
                             width="35px"
                             title="Edit"
                             cssClasses="edit"
-                            onClick={ () => {setNoteSelected(note._id)} }
+                            onClick={ () => {setNoteSelected(note._id.$oid)} }
                             />
                         </div>
                     </li> 
